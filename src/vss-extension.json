@@ -1,0 +1,81 @@
+{
+    "manifestVersion": 1,
+    "id": "Vsix-Tools",
+    "name": "Vsix Tools",
+    "public": false,
+    "version": "1.0.5",
+    "publisher": "samirboulema",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "Set vsix version.",
+    "icons": {
+        "default": "images/Logo128x128.png"
+    },
+    "categories": [
+        "Build and release"
+    ],
+    "tags": [
+        "Build",
+        "Release",
+        "Binary",
+        "Assembly",
+        "Version",
+        "Continuous Delivery",
+        "Continuous Integration",
+        "Management",
+        "Utility",
+        "Tasks"
+    ],
+    "screenshots": [
+        {
+            "path": "images/Task_List.png"
+        }
+    ],
+    "links": {
+        "learn": {
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/wiki"
+        },
+        "support": { 
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
+        },
+        "license": {
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/LICENSE"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task"
+    },
+    "content": {
+        "details": {
+            "path": "Overview.md"
+        },
+        "license": {
+            "path": "License.md"
+        }
+    },
+    "files": [
+        {
+            "path": "task"
+        },
+        {
+            "path": "images",
+            "addressable": true
+        }
+    ],
+    "contributions": [
+        {
+            "id": "Vsix-Tools",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "task"
+            }
+        }
+    ]
+}
