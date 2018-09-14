@@ -3,9 +3,11 @@ Vsix Tools is an extension for Azure DevOps that populates the version in a vsix
 
 ## Parameters
 
-Filename:
+**Filename:**
+Path to the source.extension.vsixmanifest file
 
-VersionNumber:
+**VersionNumber:**
+Version number to use in the manifest file, must be a valid version eg. 4.5.12.0
 
 ## How to use the build task
 ### Configuration

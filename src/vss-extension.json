@@ -3,7 +3,7 @@
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
     "public": false,
-    "version": "1.0.5",
+    "version": "1.0.6",
     "publisher": "samirboulema",
     "targets": [
         {
@@ -36,18 +36,18 @@
     ],
     "links": {
         "learn": {
-            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/wiki"
+            "uri": "https://github.com/sboulema/VsixTools/wiki"
         },
         "support": { 
-            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
+            "uri": "https://github.com/sboulema/VsixTools/issues"
         },
         "license": {
-            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/LICENSE"
+            "uri": "https://github.com/sboulema/VsixTools/blob/master/LICENSE"
         }
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task"
+        "uri": "https://github.com/sboulema/VsixTools"
     },
     "content": {
         "details": {
