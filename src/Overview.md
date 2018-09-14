@@ -23,11 +23,11 @@ VersionNumber:
   ![Vsix Tools task parameters](images/Task_Parameters.png)
 
 ### Help and Support
-Please visit our [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki) for articles describing how to configure the task parameters, including the various version formats supported by the extension.
+Please visit our [wiki](https://github.com/sboulema/VsixTools/wiki) for articles describing how to configure the task parameters, including the various version formats supported by the extension.
 
 ## Contributions
 We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
-If you wish to contributions to this project head on over to our [GitHub](https://github.com/BMuuN/vsts-assemblyinfo-task) page.
+If you wish to contributions to this project head on over to our [GitHub](https://github.com/sboulema/VsixTools) page.
 
 ### Release Notes
-See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.
+See the [release notes](https://github.com/sboulema/VsixTools/releases) for all changes included in each release.
