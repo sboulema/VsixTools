@@ -2,15 +2,15 @@
     "manifestVersion": 1,
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
-    "public": false,
-    "version": "1.0.6",
+    "public": true,
+    "version": "1.0.17",
     "publisher": "samirboulema",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Set vsix version.",
+    "description": "Various Vsix build tasks.",
     "icons": {
         "default": "images/Logo128x128.png"
     },
@@ -59,7 +59,7 @@
     },
     "files": [
         {
-            "path": "task"
+            "path": "tasks"
         },
         {
             "path": "images",
@@ -68,13 +68,23 @@
     ],
     "contributions": [
         {
-            "id": "Vsix-Tools",
+            "id": "Vsix-Tools-Update-Version",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "task"
+                "name": "tasks/updateVersion"
+            }
+        },
+        {
+            "id": "Vsix-Tools-Upload-Vsix",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/uploadVsix"
             }
         }
     ]

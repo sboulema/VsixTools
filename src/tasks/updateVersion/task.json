@@ -1,7 +1,7 @@
 {
   "id": "8aa837cb-7cd5-45f5-b7df-3ed54593621a",
-  "name": "Vsix-Tools",
-  "friendlyName": "Vsix Tools",
+  "name": "Vsix-Tools-Update-Version",
+  "friendlyName": "Vsix Tools - Update version",
   "description": "Set vsix version.",
   "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=SamirBoulema.Vsix-Tools)",
   "category": "Build",
@@ -35,7 +35,7 @@
   ],
   "execution": {
     "PowerShell": {
-      "target": "$(currentDirectory)\\VsixTools.ps1",
+      "target": "$(currentDirectory)\\updateVersion.ps1",
       "argumentFormat": "",
       "workingDirectory": "$(currentDirectory)"
     }
