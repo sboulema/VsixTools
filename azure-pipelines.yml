@@ -1,5 +1,5 @@
 variables:
-  patch: $[counter('versioncounter', 7)]
+  patch: $[counter('versioncounter', 19)]
   version: 1.0.$(patch)
 
 steps:

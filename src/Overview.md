@@ -1,6 +1,9 @@
 # Vsix Tools
 Vsix Tools is an extension for Azure DevOps that populates the version in a vsix manifest file from a build.
 
+# Set Vsix Version
+Set the version field in the source.extension.vsixmanifest file
+
 ## Parameters
 
 **Filename:**
@@ -8,6 +11,14 @@ Path to the source.extension.vsixmanifest file
 
 **VersionNumber:**
 Version number to use in the manifest file, must be a valid version eg. 4.5.12.0
+
+# Upload Vsix to VsixGallery
+Upload the vsix file to VsixGallery
+
+## Parameters
+
+**WorkingDirectory:**
+Path to the folder containing the vsix file
 
 ## How to use the build task
 ### Configuration
@@ -17,10 +28,7 @@ Version number to use in the manifest file, must be a valid version eg. 4.5.12.0
 
   ![Vsix Tools task position](images/Task_List.png)
 
-4. Configure the task by providing values for the attributes mentioned in the above table.  
-> Ensure you specify the file names you wish to populate within the **Source Files** field: -  
-> For .Net Framework specify files such as: *AssemblyInfo.cs, AssemblyInfo.vb, GlobalInfo.cs*  
-> For .Net Core specify the project filename: *NetCoreLib.csproj*  
+4. Configure the task by providing values for the attributes mentioned in the above table. 
 
   ![Vsix Tools task parameters](images/Task_Parameters.png)
 
