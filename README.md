@@ -1,5 +1,5 @@
 # Vsix Tools
-Vsix Tools is a set of extension for Azure DevOps that:
+Vsix Tools is a set of extensions for Azure DevOps that:
 1. Populates the version in a vsix manifest file from a build.
 2. Uploads the vsix to the [Open VSIX gallery](http://vsixgallery.com/).
 
