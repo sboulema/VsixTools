@@ -112,23 +112,6 @@
                 ],
                 "helpMarkDown": "<a href=\"https://docs.myget.org/docs/reference/feed-endpoints\" target=\"_blank\"><b>Learn More</b></a>"
             }
-        },
-        {
-            "id": "Vsix-Tools-OpenGallery-Endpoint",
-            "description": "Service endpoint type for Open VSIX gallery connections",
-            "type": "ms.vss-endpoint.service-endpoint-type",
-            "targets": [ "ms.vss-endpoint.endpoint-types" ],
-            "properties": {
-                "name": "Vsix-Tools-OpenVsixGallery",
-                "displayName": "Open Vsix Gallery",
-                "dataSources": [
-                    {
-                        "name": "Open Vsix Gallery",
-                        "endpointUrl": "http://vsixgallery.com/api/upload"
-                    }      
-                ],
-                "helpMarkDown": "<a href=\"http://vsixgallery.com/\" target=\"_blank\"><b>Learn More</b></a>"
-            }
         }
     ]
 }
