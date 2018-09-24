@@ -3,7 +3,7 @@
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
     "public": true,
-    "version": "1.0.19",
+    "version": "1.1.20",
     "publisher": "samirboulema",
     "targets": [
         {
@@ -85,6 +85,49 @@
             ],
             "properties": {
                 "name": "tasks/uploadVsix"
+            }
+        },
+        {
+            "id": "Vsix-Tools-MyGet-Endpoint",
+            "description": "Service endpoint type for MyGet connections",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [ "ms.vss-endpoint.endpoint-types" ],
+            "properties": {
+                "name": "Vsix-Tools-MyGet",
+                "displayName": "MyGet Vsix",
+                "url": {
+                    "displayName": "Feed Upload Url",
+                    "helpText": "Url for the MyGet feed to publish to."
+                },
+                "dataSources": [
+                    {
+                        "name": "Myget Vsix Feed Upload",
+                        "endpointUrl": "{{endpoint.url}}"
+                    }      
+                ],
+                "authenticationSchemes": [
+                    {
+                    "type": "ms.vss-endpoint.endpoint-auth-scheme-token"
+                    }  
+                ],
+                "helpMarkDown": "<a href=\"https://docs.myget.org/docs/reference/feed-endpoints\" target=\"_blank\"><b>Learn More</b></a>"
+            }
+        },
+        {
+            "id": "Vsix-Tools-OpenGallery-Endpoint",
+            "description": "Service endpoint type for Open VSIX gallery connections",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [ "ms.vss-endpoint.endpoint-types" ],
+            "properties": {
+                "name": "Vsix-Tools-OpenVsixGallery",
+                "displayName": "Open Vsix Gallery",
+                "dataSources": [
+                    {
+                        "name": "Open Vsix Gallery",
+                        "endpointUrl": "http://vsixgallery.com/api/upload"
+                    }      
+                ],
+                "helpMarkDown": "<a href=\"http://vsixgallery.com/\" target=\"_blank\"><b>Learn More</b></a>"
             }
         }
     ]
