@@ -255,3 +255,4 @@ paket-files/
 #kdiff
 *.orig
 /*.vsix
+/src/tasks/uploadVsix/uploadVsixV2/ps_modules

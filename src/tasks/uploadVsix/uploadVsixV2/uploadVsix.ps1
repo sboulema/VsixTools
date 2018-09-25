@@ -1,56 +1,54 @@
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory=$True)]
-    [String]$WorkingDirectory
+    [string][Parameter(Mandatory=$False)]$Url,
+    [string][Parameter(Mandatory=$False)]$Token,
+    [string][Parameter(Mandatory=$False)]$Directory
 )
 
-# Set a flag to force verbose as a default
-$VerbosePreference = 'Continue' # equiv to -verbose
+if (![string]::IsNullOrEmpty($Url)) 
+{
+    $url = $Url
+    $token = $Token
+    $WorkingDirectory = $Directory
+}
+else 
+{
+    $WorkingDirectory = Get-VstsInput -Name "WorkingDirectory";
+    if ([string]::IsNullOrEmpty($WorkingDirectory)) 
+    {
+        $WorkingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY;
+    }
 
-$vsixUploadEndpoint = "http://vsixgallery.com/api/upload"
+    $ConnectedServiceName = Get-VstsInput -Name "ConnectedServiceName";
+    $endpoint = Get-VstsEndpoint -Name "$ConnectedServiceName"
+    $url = $endpoint.url
+    $token = $endpoint.auth.parameters.apitoken
 
-function Vsix-PublishToGallery {
-    [cmdletbinding()]
-    param (
-        [Parameter(Position=0, Mandatory=0)]
-        [string]$workingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY
-    )
-    process {
-        $repo = ""
-        $issueTracker = ""
-
-        $repoUrl = $env:BUILD_REPOSITORY_URI
-        if ($baseRepoUrl -ne "") {
-            [Reflection.Assembly]::LoadWithPartialName("System.Web") | Out-Null
-            $repo = [System.Web.HttpUtility]::UrlEncode($repoUrl)
-            $issueTracker = [System.Web.HttpUtility]::UrlEncode(($repoUrl + "/issues/"))
-        }
-
-        'Publish to VSIX Gallery...' | Write-Host -ForegroundColor Cyan -NoNewline
-
-        $fileNames = (Get-ChildItem $workingDirectory -Recurse -Include *.vsix)
-
-        foreach($vsixFile in $fileNames)
-        {
-            [string]$url = ($vsixUploadEndpoint + "?repo=" + $repo + "&issuetracker=" + $issueTracker)
-            [byte[]]$bytes = [System.IO.File]::ReadAllBytes($vsixFile)
-
-            try {
-                $response = Invoke-WebRequest $url -Method Post -Body $bytes -UseBasicParsing
-                'OK' | Write-Host -ForegroundColor Green
-            }
-            catch{
-                'FAIL' | Write-Error
-                $_.Exception.Response.Headers["x-error"] | Write-Error
-            }
-        }
+    # Make sure we are using the upload endpoint of the Vsix feed
+    if (!$url.endswith("/upload")) 
+    {
+        $url += "/upload"
     }
 }
 
-Function Main() {
+Write-Host 'Publish to MyGet VSIX Feed...'
 
-    Vsix-PublishToGallery $WorkingDirectory
+$fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix)
 
+foreach($vsixFile in $fileNames)
+{
+    $bytes = [System.IO.File]::ReadAllBytes($vsixFile)
+
+    try {
+        # $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+        # $headers.Add('X-NuGet-ApiKey', $token)
+        # $response = Invoke-WebRequest $url -Method Post -Body $bytes -Headers $headers
+        $response = Invoke-WebRequest $url -Method Post -Body $bytes -Headers @{"X-NuGet-ApiKey"=$token}
+        Write-Host $response.StatusCode $response.StatusDescription
+    }
+    catch [Exception] 
+    {
+        Write-Error $_.Exception.Message
+        Write-Error $_
+    }
 }
-
-Main

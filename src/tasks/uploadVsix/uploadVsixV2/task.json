@@ -11,15 +11,15 @@
     "Minor": 0,
     "Patch": 0
   },
-  "instanceNameFormat": "Upload Vsix to MyGet service connection",
+  "instanceNameFormat": "Upload Vsix to MyGet",
   "visibility": [
     "Build"
   ],
   "inputs": [
     {
-      "name": "UploadService",
+      "name": "ConnectedServiceName",
       "type": "connectedService:Vsix-Tools-MyGet",
-      "label": "Vsix service/server end point",
+      "label": "MyGet Vsix feed connection",
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Select the MyGet end point to use. If needed, click on 'manage', and add a new service endpoint of type 'MyGet Vsix'"
@@ -29,12 +29,12 @@
       "type": "filePath",
       "label": "Working Directory",
       "defaultValue": "$(Build.ArtifactStagingDirectory)",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Specify the location of the vsix file."
     }
   ],
   "execution": {
-    "PowerShell": {
+    "PowerShell3": {
       "target": "$(currentDirectory)\\uploadVsix.ps1",
       "argumentFormat": "",
       "workingDirectory": "$(currentDirectory)"
