@@ -40,9 +40,6 @@ foreach($vsixFile in $fileNames)
     $bytes = [System.IO.File]::ReadAllBytes($vsixFile)
 
     try {
-        # $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-        # $headers.Add('X-NuGet-ApiKey', $token)
-        # $response = Invoke-WebRequest $url -Method Post -Body $bytes -Headers $headers
         $response = Invoke-WebRequest $url -Method Post -Body $bytes -Headers @{"X-NuGet-ApiKey"=$token}
         Write-Host $response.StatusCode $response.StatusDescription
     }
