@@ -1,20 +1,31 @@
 variables:
   patch: $[counter('versioncounter', 19)]
-  version: 1.0.$(patch)
+  version: 1.1.$(patch)
 
 steps:
 - task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
+  displayName: 'Increase Vsix version'
   inputs:
     rootFolder: src
     extensionVersion: '$(version)'
 
 - task: CopyFiles@2
+  displayName: 'Copy Artifacts to Staging'
   inputs:
     contents: '**\*.vsix' 
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     flattenFolders: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: '$(system.teamProject)'
+
+- task: ms-devlabs.vsts-developer-tools-build-tasks.install-extension-build-task.InstallExtension@1
+  displayName: 'Install Extension'
+  inputs:
+    connectedServiceName: 'VSTS Marketplace'
+    method: vsix
+    vsixFile: '$(Build.ArtifactStagingDirectory)\*.vsix'
+    accounts: sboulema

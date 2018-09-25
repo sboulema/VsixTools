@@ -3,7 +3,7 @@
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
     "public": true,
-    "version": "1.0.19",
+    "version": "1.1.42",
     "publisher": "samirboulema",
     "targets": [
         {
@@ -85,6 +85,33 @@
             ],
             "properties": {
                 "name": "tasks/uploadVsix"
+            }
+        },
+        {
+            "id": "Vsix-Tools-MyGet-Endpoint",
+            "description": "Service endpoint type for MyGet connections",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [ "ms.vss-endpoint.endpoint-types" ],
+            "properties": {
+                "name": "Vsix-Tools-MyGet",
+                "displayName": "MyGet Vsix",
+                "url": {
+                    "displayName": "Feed Upload Url",
+                    "helpText": "Url for the MyGet feed to publish to."
+                },
+                "authenticationSchemes": [
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-token",
+                        "headers": [
+                            {
+                                "name": "X-NuGet-ApiKey",
+                                "value": "{{ endpoint.apitoken }}"
+                            }
+                        ]
+                    }  
+                ],
+                "helpMarkDown": "<a href=\"https://docs.myget.org/docs/reference/feed-endpoints\" target=\"_blank\"><b>Learn More</b></a>",
+                "icon": "images/MyGet.png"
             }
         }
     ]
