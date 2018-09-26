@@ -1,6 +1,6 @@
 variables:
-  patch: $[counter('versioncounter', 19)]
-  version: 1.1.$(patch)
+  patch: $[counter('versioncounter', 45)]
+  version: 2.0.$(patch)
 
 steps:
 - task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
@@ -21,11 +21,3 @@ steps:
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: '$(system.teamProject)'
-
-- task: ms-devlabs.vsts-developer-tools-build-tasks.install-extension-build-task.InstallExtension@1
-  displayName: 'Install Extension'
-  inputs:
-    connectedServiceName: 'VSTS Marketplace'
-    method: vsix
-    vsixFile: '$(Build.ArtifactStagingDirectory)\*.vsix'
-    accounts: sboulema
