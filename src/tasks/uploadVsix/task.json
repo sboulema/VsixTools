@@ -1,28 +1,41 @@
 {
   "id": "76c103d8-c5e8-4f03-acaf-e31fbb276c84",
-  "name": "Vsix-Tools-Upload-Vsix",
+  "name": "VsixToolsUploadVsix",
   "friendlyName": "Vsix Tools - Upload Vsix",
-  "description": "Upload vsix to MyGet service connection.",
+  "description": "Upload Vsix.",
   "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=SamirBoulema.Vsix-Tools)",
   "category": "Build",
   "author": "Samir L. Boulema",
   "version": {
-    "Major": 2,
+    "Major": 1,
     "Minor": 0,
     "Patch": 0
   },
-  "instanceNameFormat": "Upload Vsix to MyGet",
+  "instanceNameFormat": "Upload Vsix",
   "visibility": [
     "Build"
   ],
   "inputs": [
+    {
+      "name": "UploadTo",
+      "type": "radio",
+      "label": "Upload to",
+      "required": true,
+      "defaultValue": "OpenGallery",
+      "helpMarkDown": "Publish to Vsix Open Gallery or MyGet Vsix service connection.",
+      "options": {
+        "OpenGallery": "Vsix Open Gallery",
+        "MyGetVsix": "MyGet Vsix service connection"
+      }
+    },
     {
       "name": "ConnectedServiceName",
       "type": "connectedService:Vsix-Tools-MyGet",
       "label": "MyGet Vsix feed connection",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Select the MyGet end point to use. If needed, click on 'manage', and add a new service endpoint of type 'MyGet Vsix'"
+      "helpMarkDown": "Select the MyGet end point to use. If needed, click on 'manage', and add a new service endpoint of type 'MyGet Vsix'",
+      "visibleRule": "UploadTo=MyGetVsix"
     },
     {
       "name": "WorkingDirectory",

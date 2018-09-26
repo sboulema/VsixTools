@@ -2,27 +2,42 @@
 Vsix Tools is a set of extensions for Azure DevOps that:
 1. Populates the version in a vsix manifest file from a build.
 2. Uploads the vsix to the [Open VSIX gallery](http://vsixgallery.com/).
+3. Uploads the vsix to a MyGet Vsix Feed.
 
-## YAML example
-```
+## Examples
+## UpdateVersion
+```yml
 steps:
-- task: SamirBoulema.Vsix-Tools.Vsix-Tools-Update-Version.Vsix-Tools-Update-Version@1
+- task: VsixToolsUpdateVersion@1
   displayName: 'Set Vsix Version'
   inputs:
-    FileName: source.extension.vsixmanifest
-    VersionNumber: 1.0.0
+    FileName: 'source.extension.vsixmanifest' # Default: 'source.extension.vsixmanifest'
+    VersionNumber: 1.0.0 # Default: '$(Build.BuildNumber)'
 ```
 
-```
+### Arguments
+| Argument      | Description   |
+| ------------- |:------------- |
+| FileName      | (Required) Path to the source.extension.vsixmanifest file                                   |
+| VersionNumber | (Optional) Version number to use in the manifest file, must be a valid version eg. 4.5.12.0 |
+
+## UploadVsix
+```yml
 steps:
-- task: SamirBoulema.Vsix-Tools.Vsix-Tools-Upload-Vsix.Vsix-Tools-Upload-Vsix@1
-  displayName: 'Upload Vsix to VsixGallery'
+- task: VsixToolsUploadVsix@1
+  displayName: 'Upload Vsix'
   inputs:
-    WorkingDirectory: '$(Build.ArtifactStagingDirectory)'
+    UploadTo: 'OpenGallery' # Options: 'OpenGallery', 'MyGetVsix'; Default: OpenGallery
+    WorkingDirectory: '$(Build.ArtifactStagingDirectory)' # Default: '$(Build.ArtifactStagingDirectory)'
+    ConnectedServiceName: 'MyGetVsix'
 ```
 
-## Documentation
-Read more about using the available tasks at the [Overview](Overview.md)
+### Arguments
+| Argument      | Description   |
+| ------------- |:------------- |
+| UploadTo             | (Required) Destination for the uploaded Vsix               |
+| WorkingDirectory     | (Optional) Location of the folder containing the Vsix file |
+| ConnectedServiceName | (Required if UploadTo set MyGetVsix)                       |
 
 ## Thanks
 - [Bleddyn Richards](https://github.com/BMuuN/vsts-assemblyinfo-task) basing this task on his Assembly Info task
