@@ -35,6 +35,8 @@ steps:
     UploadTo: 'OpenGallery' # Options: 'OpenGallery', 'MyGetVsix', 'Marketplace'; Default: OpenGallery
     WorkingDirectory: '$(Build.ArtifactStagingDirectory)' # Default: '$(Build.ArtifactStagingDirectory)'
     ConnectedServiceName: 'MyGetVsix'
+    PublishManifest: '**\*.json'
+    PersonalAccessToken: '***'
 ```
 
 ### Arguments
