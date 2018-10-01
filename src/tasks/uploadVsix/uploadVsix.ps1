@@ -99,7 +99,7 @@ Function UploadToMarketplace()
     
     foreach($vsixFile in $fileNames)
     {    
-        "$VSIXPublisherPath publish -payload $vsixfile -publishManifest $PublishManifest -personalAccessToken $PersonalAccessToken"
+        & "$VSIXPublisherPath" publish -payload "$vsixfile" -publishManifest "$PublishManifest" -personalAccessToken $PersonalAccessToken
     }
 }
 
