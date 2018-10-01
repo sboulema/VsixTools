@@ -78,6 +78,31 @@ Function UploadToMyGet()
     }
 }
 
+Function UploadToMarketplace() 
+{
+    $PersonalAccessToken = Get-VstsInput -Name "PersonalAccessToken";
+    $PublishManifest = Get-VstsInput -Name "PublishManifest";
+
+    $WorkingDirectory = Get-VstsInput -Name "WorkingDirectory";
+    if ([string]::IsNullOrEmpty($WorkingDirectory)) 
+    {
+        $WorkingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY;
+    }
+
+    $VisualStudioVersion = "15.0";
+    $VSINSTALLDIR = $(Get-ItemProperty "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\SxS\VS7").$VisualStudioVersion;
+    $VSIXPublisherPath = $VSINSTALLDIR + "VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe"
+    
+    Write-Host 'Publish to Marketplace...'
+
+    $fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix)
+    
+    foreach($vsixFile in $fileNames)
+    {    
+        "$VSIXPublisherPath publish -payload $vsixfile -publishManifest $PublishManifest -personalAccessToken $PersonalAccessToken"
+    }
+}
+
 Function Main 
 {
     $UploadTo = Get-VstsInput -Name "UploadTo";
@@ -85,6 +110,10 @@ Function Main
     if ($UploadTo -eq "MyGetVsix") 
     {
         UploadToMyGet
+    }
+    elseif ($UploadTo -eq "Marketplace") 
+    {
+        UploadToMarketplace
     }
     else 
     {

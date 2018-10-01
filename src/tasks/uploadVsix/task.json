@@ -25,7 +25,8 @@
       "helpMarkDown": "Publish to Vsix Open Gallery or MyGet Vsix service connection.",
       "options": {
         "OpenGallery": "Vsix Open Gallery",
-        "MyGetVsix": "MyGet Vsix service connection"
+        "MyGetVsix": "MyGet Vsix service connection",
+        "Marketplace": "Visual Studio Marketplace"
       }
     },
     {
@@ -36,6 +37,24 @@
       "required": true,
       "helpMarkDown": "Select the MyGet end point to use. If needed, click on 'manage', and add a new service endpoint of type 'MyGet Vsix'",
       "visibleRule": "UploadTo=MyGetVsix"
+    },
+    {
+      "name": "PublishManifest",
+      "type": "filePath",
+      "label": "Publish manifest",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "[Publish Manifest file](https://docs.microsoft.com/en-us/visualstudio/extensibility/walkthrough-publishing-a-visual-studio-extension-via-command-line?view=vs-2017#publishmanifest-file)",
+      "visibleRule": "UploadTo=Marketplace"
+    },
+    {
+      "name": "PersonalAccessToken",
+      "type": "text",
+      "label": "Personal Access Token",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Personal Access Token for the Visual Studio Marketplace",
+      "visibleRule": "UploadTo=Marketplace"
     },
     {
       "name": "WorkingDirectory",
