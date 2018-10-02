@@ -99,7 +99,11 @@ Function UploadToMarketplace()
     
     foreach($vsixFile in $fileNames)
     {    
-        & "$VSIXPublisherPath" publish -payload "$vsixfile" -publishManifest "$PublishManifest" -personalAccessToken $PersonalAccessToken
+        $result = & "$VSIXPublisherPath" publish -payload "$vsixfile" -publishManifest "$PublishManifest" -personalAccessToken $PersonalAccessToken 2>&1 | Out-String
+        if ($result -match "error") 
+        {
+            exit 1
+        }
     }
 }
 
