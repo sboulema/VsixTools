@@ -89,13 +89,17 @@ Function UploadToMarketplace()
         $WorkingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY;
     }
 
-    $VisualStudioVersion = "15.0";
-    $VSINSTALLDIR = $(Get-ItemProperty "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\SxS\VS7").$VisualStudioVersion;
-    $VSIXPublisherPath = $VSINSTALLDIR + "VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe"
+    Install-PackageProvider nuget -force
+    Install-Module -Name VSSetup -RequiredVersion 2.2.5 -Scope CurrentUser -Force
+    Import-Module -Name VSSetup -Version 2.2.5
+    
+    $VSSetupInstance = Get-VSSetupInstance | Select-VSSetupInstance -Product * -Require 'Microsoft.VisualStudio.Component.VSSDK'
+    $VSInstallDir=$VSSetupInstance.InstallationPath
+    $VsixPublisherPath="$VSInstallDir\VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe"
     
     Write-Host 'Publish to Marketplace...'
 
-    $fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix)
+    $fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix -File)
     
     foreach($vsixFile in $fileNames)
     {    
