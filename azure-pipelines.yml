@@ -8,7 +8,7 @@ steps:
   displayName: 'Increase Vsix version'
   inputs:
     rootFolder: src
-    extensionVersion: '$(name)'
+    extensionVersion: '$(Build.BuildNumber)'
 
 - task: CopyFiles@2
   displayName: 'Copy Artifacts to Staging'
