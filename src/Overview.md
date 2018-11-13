@@ -1,43 +1,54 @@
 # Vsix Tools
-Vsix Tools is an extension for Azure DevOps that populates the version in a vsix manifest file from a build.
 
-# Set Vsix Version
-Set the version field in the source.extension.vsixmanifest file
+[![Build Status](https://dev.azure.com/sboulema/VsixTools/_apis/build/status/VsixTools-CI)](https://dev.azure.com/sboulema/VsixTools/_build/latest?definitionId=3)
+[![Beerpay](https://beerpay.io/sboulema/VsixTools/badge.svg?style=flat)](https://beerpay.io/sboulema/VsixTools)
 
-## Parameters
+Vsix Tools is a set of extensions for Azure DevOps that:
+1. Populates the version in a vsix manifest file from a build.
+2. Uploads the vsix to the [Open VSIX gallery](http://vsixgallery.com/).
+3. Uploads the vsix to a [MyGet Vsix Feed](https://www.myget.org/vsix).
+4. Uploads the vsix to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/).
 
-**Filename:**
-Path to the source.extension.vsixmanifest file
+## Examples
+## UpdateVersion
+```yml
+steps:
+- task: VsixToolsUpdateVersion@1
+  displayName: 'Set Vsix Version'
+  inputs:
+    FileName: 'source.extension.vsixmanifest' # Default: 'source.extension.vsixmanifest'
+    VersionNumber: 1.0.0 # Default: '$(Build.BuildNumber)'
+```
 
-**VersionNumber:**
-Version number to use in the manifest file, must be a valid version eg. 4.5.12.0
+### Arguments
+| Argument      | Description   |
+| ------------- |:------------- |
+| FileName      | (Optional) Path to the source.extension.vsixmanifest file                                   |
+| VersionNumber | (Optional) Version number to use in the manifest file, must be a valid version eg. 4.5.12.0 |
 
-# Upload Vsix to VsixGallery
-Upload the vsix file to VsixGallery
+## UploadVsix
+```yml
+steps:
+- task: VsixToolsUploadVsix@1
+  displayName: 'Upload Vsix'
+  inputs:
+    UploadTo: 'OpenGallery' # Options: 'OpenGallery', 'MyGetVsix', 'Marketplace'; Default: OpenGallery
+    WorkingDirectory: '$(Build.ArtifactStagingDirectory)' # Default: '$(Build.ArtifactStagingDirectory)'
+    ConnectedServiceName: 'MyGetVsix'
+    PublishManifest: '**\*.json'
+    PersonalAccessToken: '***'
+```
 
-## Parameters
+### Arguments
+| Argument      | Description   |
+| ------------- |:------------- |
+| UploadTo             | (Optional) Destination for the uploaded Vsix               |
+| WorkingDirectory     | (Optional) Location of the folder containing the Vsix file |
+| ConnectedServiceName | (Required if UploadTo set to MyGetVsix) Name of the MyGet Vsix service connection to use for upload |
+| PublishManifest      | (Required if UploadTo set to Marketplace) Location of the publish manifest json file |
+| PersonalAccessToken  | (Required if UploadTo set to Marketplace) Token for publishing to the Marketplace |
 
-**WorkingDirectory:**
-Path to the folder containing the vsix file
-
-## How to use the build task
-### Configuration
-1. Create or edit a build definition.
-2. Click **Add build step...** and add the **Assembly Info** task from the Build category.
-3. Move the **Vsix Tools** task to the desired position ensuring it precedes the Visual Studio Build task.  
-
-  ![Vsix Tools task position](images/Task_List.png)
-
-4. Configure the task by providing values for the attributes mentioned in the above table. 
-
-  ![Vsix Tools task parameters](images/Task_Parameters.png)
-
-### Help and Support
-Please visit our [wiki](https://github.com/sboulema/VsixTools/wiki) for articles describing how to configure the task parameters, including the various version formats supported by the extension.
-
-## Contributions
-We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
-If you wish to contributions to this project head on over to our [GitHub](https://github.com/sboulema/VsixTools) page.
-
-### Release Notes
-See the [release notes](https://github.com/sboulema/VsixTools/releases) for all changes included in each release.
+## Thanks
+- [Bleddyn Richards](https://github.com/BMuuN/vsts-assemblyinfo-task) basing this task on his Assembly Info task
+- [Mads Kristensen](https://github.com/madskristensen/ExtensionScripts) for his Vsix Appveyor module
+- [Utkarsh Shigihalli](https://www.visualstudiogeeks.com/devops/continuous-build-and-deployment-of-visual-studio-extensions) for his 'Continuous build and deployment of Visual Studio extensions using Azure Pipelines' article
