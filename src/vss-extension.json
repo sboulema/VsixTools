@@ -3,7 +3,7 @@
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
     "public": true,
-    "version": "2.1.48",
+    "version": "2.2.30",
     "publisher": "samirboulema",
     "targets": [
         {
@@ -51,7 +51,7 @@
     },
     "content": {
         "details": {
-            "path": "Overview.md"
+            "path": "../README.md"
         },
         "license": {
             "path": "License.md"

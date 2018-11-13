@@ -1,7 +1,7 @@
 variables:
-  patch: $[counter('versioncounter', 48)]
+  patch: $[counter('versioncounter', 30)]
 
-name: 2.1.$(patch)
+name: 2.2.$(patch)
 
 steps:
 - task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
@@ -13,7 +13,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Artifacts to Staging'
   inputs: 
-    contents: '**\?(*.vsix|publish-manifest.json|readme.md)'
+    contents: '**\*.vsix'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
     flattenFolders: true
 
