@@ -1,7 +1,7 @@
 # Vsix Tools
 
 [![Build Status](https://dev.azure.com/sboulema/VsixTools/_apis/build/status/VsixTools-CI)](https://dev.azure.com/sboulema/VsixTools/_build/latest?definitionId=3)
-[![Beerpay](https://beerpay.io/sboulema/VsixTools/badge.svg?style=flat)](https://beerpay.io/sboulema/VsixTools)
+[![Beerpay](https://img.shields.io/beerpay/sboulema/VsixTools.svg?style=flat)](https://beerpay.io/sboulema/VsixTools)
 
 Vsix Tools is a set of extensions for Azure DevOps that:
 1. Populates the version in a vsix manifest file from a build.
