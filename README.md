@@ -8,6 +8,7 @@ Vsix Tools is a set of extensions for Azure DevOps that:
 2. Uploads the vsix to the [Open VSIX gallery](http://vsixgallery.com/).
 3. Uploads the vsix to a [MyGet Vsix Feed](https://www.myget.org/vsix).
 4. Uploads the vsix to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/).
+5. Signing the vsix.
 
 ## Examples
 ## UpdateVersion

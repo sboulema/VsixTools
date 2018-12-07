@@ -1,7 +1,7 @@
 variables:
   patch: $[counter('versioncounter', 31)]
 
-name: 2.2.$(patch)
+name: 2.3.$(patch)
 
 steps:
 - task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
