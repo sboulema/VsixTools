@@ -49,7 +49,29 @@ steps:
 | PublishManifest      | (Required if UploadTo set to Marketplace) Location of the publish manifest json file |
 | PersonalAccessToken  | (Required if UploadTo set to Marketplace) Token for publishing to the Marketplace |
 
+## SignVsix
+```yml
+steps:
+- task: VsixToolsSignVsix@1
+  displayName: 'Sign Vsix'
+  inputs:
+    CertFile: 'GUID'
+    Password: '***' 
+    SHA1: 'xx xx xx'
+    WorkingDirectory: '$(Build.ArtifactStagingDirectory)' # Default: '$(Build.ArtifactStagingDirectory)'
+```
+
+### Arguments
+| Argument      | Description   |
+| ------------- |:------------- |
+| CertFile             | (Required) Must be a Secure File Id               |
+| Password             | (Required) Password for the Certificate |
+| SHA1                 | (Required) SHA1 Hash of the Certificate |
+| WorkingDirectory     | (Optional) Location of the folder containing the Vsix file |
+
 ## Thanks
 - [Bleddyn Richards](https://github.com/BMuuN/vsts-assemblyinfo-task) basing this task on his Assembly Info task
 - [Mads Kristensen](https://github.com/madskristensen/ExtensionScripts) for his Vsix Appveyor module
 - [Utkarsh Shigihalli](https://www.visualstudiogeeks.com/devops/continuous-build-and-deployment-of-visual-studio-extensions) for his 'Continuous build and deployment of Visual Studio extensions using Azure Pipelines' article
+- [Mario Majcica](https://github.com/Microsoft/azure-pipelines-task-lib/issues/280) for showing how to download Secure Files
+- [Jeff Bramwell](https://blog.devmatter.com/calling-vsts-apis-with-powershell/) for showing hot to authenticate using PAT
