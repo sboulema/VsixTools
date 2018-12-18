@@ -3,7 +3,7 @@
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
     "public": true,
-    "version": "2.2.31",
+    "version": "2.3.31",
     "publisher": "samirboulema",
     "targets": [
         {
@@ -85,6 +85,16 @@
             ],
             "properties": {
                 "name": "tasks/uploadVsix"
+            }
+        },
+        {
+            "id": "Vsix-Tools-Sign-Vsix",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/signVsix"
             }
         },
         {
