@@ -41,11 +41,7 @@ Function SignVsix
 
     foreach($vsixFile in $fileNames)
     {
-        & "$VsixSignTool" sign /f "$filePath" /p "$Password" /sha1 "$SHA1" $vsixFile
-
-
-        $result = & "$VsixSignTool" sign /f "$filePath" /p "$Password" /sha1 "$SHA1" $vsixFile 2>&1 | Out-String
-        Write-Host $result
+        & "$VsixSignTool" sign /f "$filePath" /p $Password /sha1 "$SHA1" /v $vsixFile
     }
 }
 
