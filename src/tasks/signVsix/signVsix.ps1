@@ -32,8 +32,8 @@ Function SignVsix
 
     Write-Host 'Installing VsixSignTool...'
 
-    & nuget install Microsoft.VSSDK.Vsixsigntool -ExcludeVersion -OutputDirectory $WorkingDirectory | out-null
-    $VsixSignTool = "$WorkingDirectory\Microsoft.VSSDK.VsixSignTool\tools\vssdk\VSIXSignTool.exe";
+    & nuget install Microsoft.VSSDK.Vsixsigntool -ExcludeVersion -OutputDirectory $tempDirectory | out-null
+    $VsixSignTool = "$tempDirectory\Microsoft.VSSDK.VsixSignTool\tools\vssdk\VSIXSignTool.exe";
 
     Write-Host 'Signing VSIX...'
 
