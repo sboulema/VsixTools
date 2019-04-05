@@ -4,17 +4,20 @@ variables:
 name: 2.3.$(patch)
 
 steps:
-- task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
-  displayName: 'Increase Vsix version'
-  inputs:
-    rootFolder: src
-    extensionVersion: '$(Build.BuildNumber)'
+- task: ms-devlabs.vsts-developer-tools-build-tasks.tfx-installer-build-task.TfxInstaller@1
+  displayName: 'Use Node CLI for Azure DevOps: v0.6.x'
 
 - task: PowerShell@2
-  displayName: 'Run Build Script'
+  displayName: 'Install PS_Modules'
   inputs:
     targetType: filePath
     filePath: ./Build.ps1
+
+- task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
+  displayName: 'Build Vsix & Increase Vsix version'
+  inputs:
+    rootFolder: src
+    extensionVersion: '$(Build.BuildNumber)'
 
 - task: CopyFiles@2
   displayName: 'Copy Artifacts to Staging'
