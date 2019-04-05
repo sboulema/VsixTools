@@ -10,6 +10,12 @@ steps:
     rootFolder: src
     extensionVersion: '$(Build.BuildNumber)'
 
+- task: PowerShell@2
+  displayName: 'Run Build Script'
+  inputs:
+    targetType: filePath
+    filePath: ./Build.ps1
+
 - task: CopyFiles@2
   displayName: 'Copy Artifacts to Staging'
   inputs: 
