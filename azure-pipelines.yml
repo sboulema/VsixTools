@@ -1,7 +1,7 @@
 variables:
   patch: $[counter('versioncounter', 31)]
 
-name: 2.3.$(patch)
+name: 2.4.$(patch)
 
 steps:
 - task: ms-devlabs.vsts-developer-tools-build-tasks.tfx-installer-build-task.TfxInstaller@1
@@ -18,6 +18,7 @@ steps:
   inputs:
     rootFolder: src
     extensionVersion: '$(Build.BuildNumber)'
+    updateTasksVersion: true
 
 - task: CopyFiles@2
   displayName: 'Copy Artifacts to Staging'

@@ -64,10 +64,14 @@ steps:
 ### Arguments
 | Argument      | Description   |
 | ------------- |:------------- |
-| CertFile             | (Required) Must be a Secure File Id               |
-| Password             | (Required) Password for the Certificate |
-| SHA1                 | (Required) SHA1 Hash of the Certificate |
-| WorkingDirectory     | (Optional) Location of the folder containing the Vsix file |
+| CertFile              | (Optional) Must be a Secure File Id |
+| CertificatePath       | (Optional) Location of the certificate file |
+| Password              | (Required) Password for the Certificate |
+| SHA1                  | (Required) SHA1 Hash of the Certificate |
+| Username              | (Optional) Username for retrieving the CertFile |
+| Personal Access Token | (Optional) PAT for retrieving the CertFile |
+| TimestampURL          | (Optional) URL to a timestamp server |
+| WorkingDirectory      | (Optional) Location of the folder containing the Vsix file |
 
 ## Thanks
 - [Bleddyn Richards](https://github.com/BMuuN/vsts-assemblyinfo-task) basing this task on his Assembly Info task

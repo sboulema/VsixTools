@@ -21,8 +21,16 @@
       "type": "secureFile",
       "label": "Certificate file",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "[Certificate file](https://docs.microsoft.com/nl-be/visualstudio/extensibility/signing-vsix-packages?view=vs-2017)"
+    },
+    {
+      "name": "CertificatePath",
+      "type": "filePath",
+      "label": "Path to the Certificate file",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Specify the location of the certificate file."
     },
     {
       "name": "Password",
@@ -45,7 +53,7 @@
       "type": "text",
       "label": "Azure DevOps Username",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Azure Devops username to get secure certificate"
     },
     {
@@ -53,8 +61,16 @@
       "type": "text",
       "label": "Azure DevOps Personal Access Token",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Azure Devops pat to get secure certificate"
+    },
+    {
+      "name": "TimestampURL",
+      "type": "text",
+      "label": "URL to timestamp server",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "URL to timestamp server"
     },
     {
       "name": "WorkingDirectory",
