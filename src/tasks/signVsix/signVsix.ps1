@@ -6,6 +6,7 @@ Function SignVsix
     $PersonalAccessToken = Get-VstsInput -Name "PAT";
     $CertificatePath = Get-VstsInput -Name "CertificatePath";
     $TimestampURL = Get-VstsInput -Name "TimestampURL";
+    $TimestampAlgorithm = Get-VstsInput -Name "TimestampAlgorithm";
     $WorkingDirectory = Get-VstsInput -Name "WorkingDirectory";
     if ([string]::IsNullOrEmpty($WorkingDirectory)) 
     {
@@ -53,8 +54,10 @@ Function SignVsix
     $args += "$SHA1"
 
     if (![string]::IsNullOrEmpty($TimestampURL)) {
-        $args += "/t"
+        $args += "/tr"
         $args += $TimestampURL
+        $args += "/td"
+        $args += $TimestampAlgorithm
     }
 
     foreach($vsixFile in $fileNames)

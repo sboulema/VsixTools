@@ -70,7 +70,15 @@
       "label": "URL to timestamp server",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "URL to timestamp server"
+      "helpMarkDown": "RFC3161_timestamp_URL"
+    },
+    {
+      "name": "TimestampAlgorithm",
+      "type": "text",
+      "label": "Algorithm to use with timestamp server",
+      "defaultValue": "sha256",
+      "required": false,
+      "helpMarkDown": "Algorithm to use with timestamp server"
     },
     {
       "name": "WorkingDirectory",
