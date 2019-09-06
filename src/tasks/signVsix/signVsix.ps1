@@ -13,6 +13,8 @@ Function SignVsix
         $WorkingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY;
     }
 
+    $tempDirectory = Get-VstsTaskVariable -Name "Agent.TempDirectory" -Require;
+
     if (![string]::IsNullOrEmpty($PersonalAccessToken) -AND ![string]::IsNullOrEmpty($Username)) {
         # Base64-encodes the Personal Access Token (PAT) appropriately
         $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $Username,$PersonalAccessToken)))
@@ -21,8 +23,7 @@ Function SignVsix
 
         $secFileId = Get-VstsInput -Name CertFile -Require
         $secTicket = Get-VstsSecureFileTicket -Id $secFileId
-        $secName = Get-VstsSecureFileName -Id $secFileId
-        $tempDirectory = Get-VstsTaskVariable -Name "Agent.TempDirectory" -Require
+        $secName = Get-VstsSecureFileName -Id $secFileId    
         $collectionUrl = Get-VstsTaskVariable -Name "System.TeamFoundationCollectionUri" -Require
         $project = Get-VstsTaskVariable -Name "System.TeamProject" -Require
 
