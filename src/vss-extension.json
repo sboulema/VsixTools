@@ -43,6 +43,9 @@
         },
         "license": {
             "uri": "https://github.com/sboulema/VsixTools/blob/master/LICENSE"
+        },
+        "privacypolicy": {
+            "uri": "https://github.com/sboulema/VsixTools/blob/master/PRIVACY.md"
         }
     },
     "repository": {
