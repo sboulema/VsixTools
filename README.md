@@ -75,6 +75,10 @@ steps:
 | TimestampAlgorithm    | (Optional) Algorithm to tuse with timestamp server |
 | WorkingDirectory      | (Optional) Location of the folder containing the Vsix file |
 
+## Building
+1. Run `Build.ps1`
+2. Run `Package.ps1`
+
 ## Thanks
 - [Bleddyn Richards](https://github.com/BMuuN/vsts-assemblyinfo-task) basing this task on his Assembly Info task
 - [Mads Kristensen](https://github.com/madskristensen/ExtensionScripts) for his Vsix Appveyor module
