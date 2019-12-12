@@ -13,7 +13,8 @@
   },
   "instanceNameFormat": "Upload Vsix",
   "visibility": [
-    "Build"
+    "Build",
+    "Release"
   ],
   "inputs": [
     {

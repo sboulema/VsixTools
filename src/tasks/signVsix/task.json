@@ -13,7 +13,8 @@
   },
   "instanceNameFormat": "Sign Vsix",
   "visibility": [
-    "Build"
+    "Build",
+    "Release"
   ],
   "inputs": [
     {

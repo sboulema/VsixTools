@@ -13,7 +13,8 @@
   },
   "instanceNameFormat": "Set Vsix Version",
   "visibility": [
-    "Build"
+    "Build",
+    "Release"
   ],
   "inputs": [
     {
