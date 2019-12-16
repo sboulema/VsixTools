@@ -22,7 +22,7 @@
       "type": "filePath",
       "label": "Manifest File",
       "defaultValue": "source.extension.vsixmanifest",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Specify the vsix manifest file."
     },
     {

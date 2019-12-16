@@ -1,4 +1,5 @@
-function UpdateVersion {
+Function UpdateVersion
+{
     $manifestFilePath = Get-VstsInput -Name "FileName";
     if ([string]::IsNullOrEmpty($manifestFilePath)) 
     {
@@ -12,7 +13,7 @@ function UpdateVersion {
     }
 
     "Incrementing VSIX version..." | Write-Host  -ForegroundColor Cyan -NoNewline
-    
+
     $matches = (Get-ChildItem $manifestFilePath -Recurse)
     $vsixManifest = $matches[$matches.Count - 1] # Get the last one which matches the top most file in the recursive matches
     [xml]$vsixXml = Get-Content $vsixManifest
