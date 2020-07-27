@@ -6,7 +6,7 @@ Function UploadToOpenGallery
         $WorkingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY;
     }
 
-    $vsixUploadEndpoint = "http://vsixgallery.com/api/upload"
+    $vsixUploadEndpoint = "https://www.vsixgallery.com/api/upload"
     $repo = ""
     $issueTracker = ""
     $url = ""
