@@ -59,7 +59,10 @@ stages:
       inputs:
         instructions: 'Please allow publishing to the MarketPlace'
         onTimeout: 'reject'
-
+        
+  - job: Release
+    dependsOn: waitForValidation
+    steps:
     - task: TfxInstaller@3
       displayName: 'Use Node CLI for Azure DevOps'
       inputs:
