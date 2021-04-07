@@ -42,7 +42,6 @@ stages:
         gitHubConnection: 'GitHub Release'
         repositoryName: sboulema/VsixTools
         action: Create
-        tagSource: manual
         title: 'v$(Build.BuildNumber)'
         assets: '$(System.DefaultWorkingDirectory)/**/*.vsix'
 
