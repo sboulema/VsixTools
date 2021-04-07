@@ -1,31 +1,69 @@
-variables:
-  patch: $[counter('versioncounter', 31)]
+name: 2.5.$(Build.BuildId)
 
-name: 2.5.$(patch)
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: TfxInstaller@3
+      displayName: 'Use Node CLI for Azure DevOps'
+      inputs:
+        version: '0.9.x'
 
-steps:
-- task: TfxInstaller@3
-  displayName: 'Use Node CLI for Azure DevOps'
-  inputs:
-    version: '0.9.x'
+    - task: PowerShell@2
+      displayName: 'Install PS_Modules'
+      inputs:
+        targetType: filePath
+        filePath: ./Build.ps1
 
-- task: PowerShell@2
-  displayName: 'Install PS_Modules'
-  inputs:
-    targetType: filePath
-    filePath: ./Build.ps1
+    - task: PackageAzureDevOpsExtension@3
+      displayName: 'Package vsix & Increase vsix version'
+      name: 'packageStep'
+      inputs:
+        rootFolder: 'src'
+        extensionVersion: '$(Build.BuildNumber)'
+        updateTasksVersion: true
 
-- task: PackageAzureDevOpsExtension@3
-  displayName: 'Package vsix & Increase vsix version'
-  name: 'packageStep'
-  inputs:
-    rootFolder: 'src'
-    extensionVersion: '$(Build.BuildNumber)'
-    updateTasksVersion: true
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish vsix'
+      inputs:
+        publishLocation: pipeline
+        targetPath: '$(packageStep.Extension.OutputPath)'
+        artifact: 'vsix'
 
-- task: PublishPipelineArtifact@1
-  displayName: 'Publish vsix'
-  inputs:
-    publishLocation: pipeline
-    targetPath: '$(packageStep.Extension.OutputPath)'
-    artifact: 'vsix'
+- stage: CreateGitHubRelease
+  displayName: Create GitHub Release
+  jobs:
+  - job: Release
+    steps:
+    - task: GitHubRelease@1
+      displayName: 'Create GitHub Release'
+      inputs:
+        gitHubConnection: 'GitHub Release'
+        repositoryName: sboulema/VsixTools
+        action: Create
+        tagSource: manual
+        title: 'v$(Build.BuildNumber)'
+        assets: '$(System.DefaultWorkingDirectory)/**/*.vsix'
+
+- stage: CreateMarketPlaceRelease
+  displayName: Create MarketPlace Release
+  jobs:
+  - job: waitForValidation
+    displayName: Wait for validation
+    pool: server
+    timeoutInMinutes: 4320 # job times out in 3 days
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 1440 # task times out in 1 day
+      inputs:
+        instructions: 'Please allow publishing to the MarketPlace'
+        onTimeout: 'reject'
+  - job: Release
+    steps:
+    - task: PublishAzureDevOpsExtension@3
+      displayName: 'Publish Extension'
+      inputs:
+        connectedServiceName: 'Visual Studio Marketplace'
+        fileType: vsix
+        vsixFile: '$(System.DefaultWorkingDirectory)/**/*.vsix'
