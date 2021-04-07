@@ -36,6 +36,13 @@ stages:
   jobs:
   - job: Release
     steps:
+    - checkout: none
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+      artifact: 'vsix'
+      path: $(Pipeline.Workspace)/vsix
+
     - task: GitHubRelease@1
       displayName: 'Create GitHub Release'
       inputs:
@@ -43,8 +50,9 @@ stages:
         repositoryName: sboulema/VsixTools
         action: Create
         title: 'v$(Build.BuildNumber)'
-        assets: '$(System.DefaultWorkingDirectory)/**/*.vsix'
-        tagSource: 'gitTag'
+        assets: '$(Pipeline.Workspace)/vsix/*.vsix'
+        tagSource: 'userSpecifiedTag'
+        tag: $(Build.BuildNumber)
 
 - stage: CreateMarketPlaceRelease
   displayName: Create MarketPlace Release
@@ -63,6 +71,13 @@ stages:
   - job: Release
     dependsOn: waitForValidation
     steps:
+    - checkout: none
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+      artifact: 'vsix'
+      path: $(Pipeline.Workspace)/vsix
+
     - task: TfxInstaller@3
       displayName: 'Use Node CLI for Azure DevOps'
       inputs:
@@ -73,4 +88,4 @@ stages:
       inputs:
         connectedServiceName: 'Visual Studio Marketplace'
         fileType: vsix
-        vsixFile: '$(System.DefaultWorkingDirectory)/**/*.vsix'
+        vsixFile: '$(Pipeline.Workspace)/vsix/*.vsix'
