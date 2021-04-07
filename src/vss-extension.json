@@ -3,7 +3,7 @@
     "id": "Vsix-Tools",
     "name": "Vsix Tools",
     "public": true,
-    "version": "2.4.44",
+    "version": "2.5.0",
     "publisher": "samirboulema",
     "targets": [
         {

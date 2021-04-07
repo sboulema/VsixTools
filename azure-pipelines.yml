@@ -1,7 +1,7 @@
 variables:
   patch: $[counter('versioncounter', 31)]
 
-name: 2.4.$(patch)
+name: 2.5.$(patch)
 
 steps:
 - task: ms-devlabs.vsts-developer-tools-build-tasks.tfx-installer-build-task.TfxInstaller@1

@@ -6,35 +6,26 @@ Function UploadToOpenGallery
         $WorkingDirectory = $env:BUILD_ARTIFACTSTAGINGDIRECTORY;
     }
 
-    $vsixUploadEndpoint = "https://www.vsixgallery.com/api/upload"
-    $repo = ""
-    $issueTracker = ""
-    $url = ""
-
-    $repoUrl = $env:BUILD_REPOSITORY_URI
-    if ($baseRepoUrl -ne "") {
-        [Reflection.Assembly]::LoadWithPartialName("System.Web") | Out-Null
-        $repo = [System.Web.HttpUtility]::UrlEncode($repoUrl)
-        $issueTracker = [System.Web.HttpUtility]::UrlEncode(($repoUrl + "/issues/"))
-        $url = ($vsixUploadEndpoint + "?repo=" + $repo + "&issuetracker=" + $issueTracker)
-    }
+    [Reflection.Assembly]::LoadWithPartialName("System.Web") | Out-Null
+    $repo = [System.Web.HttpUtility]::UrlEncode($env:BUILD_REPOSITORY_URI)
+    $issueTracker = [System.Web.HttpUtility]::UrlEncode(($env:BUILD_REPOSITORY_URI + "/issues/"))
+    $url = ("https://www.vsixgallery.com/api/upload?repo=" + $repo + "&issuetracker=" + $issueTracker)
 
     Write-Host 'Publish to VSIX Gallery...'
+    Write-Host $url
 
     $fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix)
 
-    foreach($vsixFile in $fileNames)
-    {
-        $bytes = [System.IO.File]::ReadAllBytes($vsixFile)
-
+    foreach($fileName in $fileNames)
+    {   
         try {
-            $response = Invoke-WebRequest $url -Method Post -Body $bytes
-            Write-Host $response.StatusCode $response.StatusDescription
+            $webclient = New-Object System.Net.WebClient
+            $webclient.UploadFile($url, $fileName) | Out-Null
+            'OK' | Write-Host -ForegroundColor Green
         }
-        catch [Exception] 
-        {
-            Write-Error $_.Exception.Message
-            Write-Error $_
+        catch{
+            'FAIL' | Write-Error
+            $_.Exception.Response.Headers["x-error"] | Write-Error
         }
     }
 }
