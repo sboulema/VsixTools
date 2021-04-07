@@ -44,7 +44,7 @@ stages:
         action: Create
         title: 'v$(Build.BuildNumber)'
         assets: '$(System.DefaultWorkingDirectory)/**/*.vsix'
-        tagSource: 'auto'
+        tagSource: 'gitTag'
 
 - stage: CreateMarketPlaceRelease
   displayName: Create MarketPlace Release
@@ -59,7 +59,7 @@ stages:
       inputs:
         instructions: 'Please allow publishing to the MarketPlace'
         onTimeout: 'reject'
-        
+
   - job: Release
     dependsOn: waitForValidation
     steps:
