@@ -4,31 +4,23 @@ variables:
 name: 2.5.$(patch)
 
 steps:
-- task: ms-devlabs.vsts-developer-tools-build-tasks.tfx-installer-build-task.TfxInstaller@1
-  displayName: 'Use Node CLI for Azure DevOps: v0.6.x'
-
 - task: PowerShell@2
   displayName: 'Install PS_Modules'
   inputs:
     targetType: filePath
     filePath: ./Build.ps1
 
-- task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
-  displayName: 'Build Vsix & Increase Vsix version'
+- task: PackageAzureDevOpsExtension@3
+  displayName: 'Package vsix & Increase vsix version'
+  name: 'packageStep'
   inputs:
-    rootFolder: src
+    rootFolder: 'src'
     extensionVersion: '$(Build.BuildNumber)'
     updateTasksVersion: true
 
-- task: CopyFiles@2
-  displayName: 'Copy Artifacts to Staging'
-  inputs: 
-    contents: '**\*.vsix'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-    flattenFolders: true
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Build Artifacts'
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish vsix'
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: '$(system.teamProject)'
+    publishLocation: pipeline
+    targetPath: '$(packageStep.Extension.OutputPath)'
+    artifact: 'vsix'
