@@ -39,9 +39,10 @@ stages:
     - checkout: none
 
     - task: DownloadPipelineArtifact@2
+      displayName: 'Download Pipeline Artifact: vsix'
       inputs:
-      artifact: 'vsix'
-      path: $(Pipeline.Workspace)/vsix
+        artifact: 'vsix'
+        path: $(Pipeline.Workspace)/vsix
 
     - task: GitHubRelease@1
       displayName: 'Create GitHub Release'
@@ -74,9 +75,10 @@ stages:
     - checkout: none
 
     - task: DownloadPipelineArtifact@2
+      displayName: 'Download Pipeline Artifact: vsix'
       inputs:
-      artifact: 'vsix'
-      path: $(Pipeline.Workspace)/vsix
+        artifact: 'vsix'
+        path: $(Pipeline.Workspace)/vsix
 
     - task: TfxInstaller@3
       displayName: 'Use Node CLI for Azure DevOps'
