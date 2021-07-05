@@ -81,8 +81,8 @@ Function UploadToMarketplace()
     }
 
     Install-PackageProvider nuget -force
-    Install-Module -Name VSSetup -RequiredVersion 2.2.5 -Scope CurrentUser -Force
-    Import-Module -Name VSSetup -Version 2.2.5
+    Install-Module -Name VSSetup -RequiredVersion 2.2.16 -Scope CurrentUser -Force
+    Import-Module -Name VSSetup -Version 2.2.16
     
     $VSSetupInstance = Get-VSSetupInstance | Select-VSSetupInstance -Product * -Require 'Microsoft.VisualStudio.Component.VSSDK'
     $VSInstallDir=$VSSetupInstance.InstallationPath
@@ -90,14 +90,29 @@ Function UploadToMarketplace()
     
     Write-Host 'Publish to Marketplace...'
 
-    $fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix -File)
-    
-    foreach($vsixFile in $fileNames)
-    {    
-        $result = & "$VSIXPublisherPath" publish -payload "$vsixfile" -publishManifest "$PublishManifest" -personalAccessToken $PersonalAccessToken 2>&1 | Out-String
+    if (Test-Path $WorkingDirectory -PathType Leaf)
+    {
+        Write-Host 'Publishing ' + $WorkingDirectory + ' to Marketplace...'
+
+        $result = & "$VSIXPublisherPath" publish -payload "$WorkingDirectory" -publishManifest "$PublishManifest" -personalAccessToken $PersonalAccessToken 2>&1 | Out-String
         if ($result -match "error") 
         {
             exit 1
+        }
+    }
+    else
+    {
+        $fileNames = (Get-ChildItem $WorkingDirectory -Recurse -Include *.vsix -File)
+    
+        foreach($vsixFile in $fileNames)
+        {    
+            Write-Host 'Publishing ' + $vsixFile + ' to Marketplace...'
+
+            $result = & "$VSIXPublisherPath" publish -payload "$vsixfile" -publishManifest "$PublishManifest" -personalAccessToken $PersonalAccessToken 2>&1 | Out-String
+            if ($result -match "error") 
+            {
+                exit 1
+            }
         }
     }
 }
